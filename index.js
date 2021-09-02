@@ -96,4 +96,24 @@ function maxCharacter(str) {
    return maxChar;
 }
 
-console.log(maxCharacter('javascript'));
+//console.log(maxCharacter('javascript'));
+
+/////////////////////////////////////////////
+
+//fizz buzz
+//1 to 100, multiples of 3 are fizz, multiples of 5 are buzz, multiples of 3 and 5 are fizzbuzz
+//first attempt
+function fizzbuzz() {
+   for (let i = 1; i <= 100; i++) {
+      if (i % 3 == 0 && i % 5 == 0) {
+         console.log('fizzbuzz');
+      } else if (i % 3 == 0) {
+         console.log('fizz');
+      } else if (i % 5 == 0) {
+         console.log('buzz');
+      } else {
+         console.log(i);
+      }
+   }
+}
+fizzbuzz();
