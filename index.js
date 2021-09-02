@@ -73,4 +73,27 @@ function capitalizeLetters(str) {
    return capitalStr;
 }
 
-console.log(capitalizeLetters('this is a test'));
+//console.log(capitalizeLetters('this is a test'));
+
+////////////////////////////////////////////////////
+
+//get most common character in string
+//first attempt
+function maxCharacter(str) {
+   const map = {};
+   let maxChar = '';
+   let maxNumber = 0;
+
+   for (let char of str) {
+      map[char] ? map[char]++ : (map[char] = 1);
+   }
+   for (let key in map) {
+      if (map[key] > maxNumber) {
+         maxNumber = map[key];
+         maxChar = key;
+      }
+   }
+   return maxChar;
+}
+
+console.log(maxCharacter('javascript'));
