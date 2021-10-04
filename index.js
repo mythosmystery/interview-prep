@@ -339,4 +339,110 @@ function evenOddSum(arr) {
    arr.forEach(num => (num % 2 == 0 ? (evenSum += num) : (oddSum += num)));
    return [evenSum, oddSum];
 }
-console.log(evenOddSum([50, 60, 60, 45, 71]));
+//console.log(evenOddSum([50, 60, 60, 45, 71]));
+
+////////////////////////////////////////////////////
+
+//coin flips algorithm
+//minimum flips to get to an alternating pattern
+function coinFlips(A) {
+   let numFlips = 0;
+   A.reduce((prev, curr, index) => {
+      if ((prev === -1 && curr === A[index + 1] && A.length > 3) || prev === curr) {
+         numFlips++;
+         curr === 0 ? curr++ : curr--;
+      }
+      return curr;
+   }, -1);
+   return numFlips;
+}
+//console.log(coinFlips([1, 1, 1, 0, 1, 0, 0, 1]));
+
+///////////////////////////////
+
+function coinFlips(A) {
+   let minA = 0;
+   let minB = 0;
+   A.reduce((prev, curr) => {
+      if (prev === curr) {
+         curr === 0 ? curr++ : curr--;
+         minA++;
+      }
+      return curr;
+   });
+   A.reduce((prev, curr) => {
+      if (prev === curr || prev === -1) {
+         curr === 0 ? curr++ : curr--;
+         minB++;
+      }
+      return curr;
+   }, -1);
+   return minB > minA ? minA : minB;
+}
+// console.log(coinFlips([1, 1, 1, 0, 1, 0, 0, 1]));
+
+/////////////////////////////////////////////
+
+function diffArray(arr1, arr2) {
+   var newArr = [];
+   arr1.forEach(item => {
+      if (!arr2.includes(item)) {
+         newArr.push(item);
+      }
+   });
+   arr2.forEach(item => {
+      if (!arr1.includes(item)) {
+         newArr.push(item);
+      }
+   });
+   return newArr;
+}
+
+// console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
+
+///////////////////////////////
+
+function destroy(...args) {
+   const array = args[0].filter(item => {
+      for (let arg of args) {
+         if (item === arg) return false;
+      }
+      return true;
+   });
+   return array;
+}
+// console.log(destroy([1, 2, 3, 6, 6], 2, 6));
+
+////////////////////////////////////////
+
+function whatIsInAName(collection, source) {
+   var arr = [];
+   let srcKeys = Object.keys(source);
+   let srcVals = Object.values(source);
+   for (let obj of collection) {
+      let objKeys = Object.keys(obj);
+      let objValues = Object.values(obj);
+      if (srcVals.every(elem => objValues.includes(elem)) && srcKeys.every(elem => objKeys.includes(elem))) {
+         arr.push(obj);
+      }
+   }
+   console.log(arr);
+   return arr;
+}
+
+//whatIsInAName([{ apple: 1, bat: 2 }, { bat: 2 }, { apple: 1, bat: 2, cookie: 2 }], { apple: 1, bat: 2 });
+
+// whatIsInAName(
+//    [
+//       { first: 'Romeo', last: 'Montague' },
+//       { first: 'Mercutio', last: null },
+//       { first: 'Tybalt', last: 'Capulet' },
+//    ],
+//    { last: 'Capulet' }
+// );
+
+///////////////////////////////////////////////
+
+function spinalCase(str) {
+   return str;
+}
