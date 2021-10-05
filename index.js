@@ -450,5 +450,8 @@ function whatIsInAName(collection, source) {
 ///////////////////////////////////////////////
 
 function spinalCase(str) {
+   str = str.replace(/([a-z])([A-Z])/g, '$1 $1');
+   str = str.replace(/\s+|_+/g, '-');
    return str;
 }
+console.log(spinalCase('AllThe-small Things'));
