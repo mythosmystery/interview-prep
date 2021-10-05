@@ -404,7 +404,7 @@ function diffArray(arr1, arr2) {
    //return arr1.filter(elem => !arr2.includes(elem)).concat(arr2.filter(elem => !arr1.includes(elem)));
 }
 
-console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
+//console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
 
 ///////////////////////////////
 
@@ -450,8 +450,17 @@ function whatIsInAName(collection, source) {
 ///////////////////////////////////////////////
 
 function spinalCase(str) {
-   str = str.replace(/([a-z])([A-Z])/g, '$1 $1');
+   str = str.replace(/([a-z])([A-Z])/g, '$1 $2');
    str = str.replace(/\s+|_+/g, '-');
+   return str.toLowerCase();
+}
+//console.log(spinalCase('AllThe-small Things'));
+
+//////////////////////////////////////
+
+function pigLatin(str) {
+   str = str.replace(/^([aeiou]\w+)/g, '$1way');
+   str = str.replace(/^([^aeiou])(\w+)/g, '$2$1ay');
    return str;
 }
-console.log(spinalCase('AllThe-small Things'));
+console.log(pigLatin('consonant'));
