@@ -383,22 +383,28 @@ function coinFlips(A) {
 
 /////////////////////////////////////////////
 
+// function diffArray(arr1, arr2) {
+//    var newArr = [];
+//    arr1.forEach(item => {
+//       if (!arr2.includes(item)) {
+//          newArr.push(item);
+//       }
+//    });
+//    arr2.forEach(item => {
+//       if (!arr1.includes(item)) {
+//          newArr.push(item);
+//       }
+//    });
+//    return newArr;
+// }
 function diffArray(arr1, arr2) {
-   var newArr = [];
-   arr1.forEach(item => {
-      if (!arr2.includes(item)) {
-         newArr.push(item);
-      }
-   });
-   arr2.forEach(item => {
-      if (!arr1.includes(item)) {
-         newArr.push(item);
-      }
-   });
-   return newArr;
+   let arr1Items = arr1.filter(elem => !arr2.includes(elem));
+   let arr2Items = arr2.filter(elem => !arr1.includes(elem));
+   return arr1Items.concat(arr2Items);
+   //return arr1.filter(elem => !arr2.includes(elem)).concat(arr2.filter(elem => !arr1.includes(elem)));
 }
 
-// console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
+console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
 
 ///////////////////////////////
 
