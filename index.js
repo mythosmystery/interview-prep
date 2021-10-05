@@ -460,7 +460,7 @@ function spinalCase(str) {
 
 function pigLatin(str) {
    str = str.replace(/^([aeiou]\w+)/g, '$1way');
-   str = str.replace(/^([^aeiou])(\w+)/g, '$2$1ay');
+   str = str.replace(/^([^aeiou]+)(\w+)/g, '$2$1ay');
    return str;
 }
-console.log(pigLatin('consonant'));
+console.log(pigLatin('glove'));
