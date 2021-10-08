@@ -463,4 +463,284 @@ function pigLatin(str) {
    str = str.replace(/^([^aeiou]+)(\w+)/g, '$2$1ay');
    return str;
 }
-console.log(pigLatin('glove'));
+// console.log(pigLatin('rhythm'));
+
+//////////////////////////////////////////////////
+
+function sumAll(arr) {
+   const [first, last] = arr;
+   if (first !== last) {
+      return first + sumAll([first + 1, last]);
+   } else {
+      return first;
+   }
+}
+// console.log(sumAll([1, 4]));
+
+///////////////////////////////////////////////
+
+function bubbleSort(arr) {
+   for (let _ of arr) {
+      let wasSwapped = false;
+      for (let i = 0; i < arr.length; i++) {
+         if (arr[i] > arr[i + 1]) {
+            swap(arr, i, i + 1);
+            wasSwapped = true;
+         }
+      }
+      if (!wasSwapped) break;
+   }
+   return arr;
+}
+// console.log(bubbleSort([1, 2, 55, 23, -24, 26, 25, 100, 7, 4, 0]));
+
+function swap(arr, left, right) {
+   let temp = arr[left];
+   arr[left] = arr[right];
+   arr[right] = temp;
+}
+
+///////////////////////////////////////////////////////////////////////
+
+function quickSort(arr, left = 0, right = arr.length - 1) {
+   if (left < right) {
+      let pivot = left;
+      for (let i = left + 1; i <= right; i++) {
+         if (arr[i] < arr[left]) swap(arr, i, ++pivot);
+      }
+      swap(arr, left, pivot);
+      quickSort(arr, left, pivot - 1);
+      quickSort(arr, pivot + 1, right);
+   }
+   return arr;
+}
+// console.log(quickSort([1, 2, 55, 23, -24, 26, 25, 100, 7, 4, 0]));
+
+/////////////////////////////////////////////////
+
+class Stack {
+   constructor() {
+      this.collection = [];
+   }
+
+   print() {
+      console.log(this.collection);
+   }
+
+   push(val) {
+      return this.collection.push(val);
+   }
+
+   pop() {
+      return this.collection.pop();
+   }
+
+   peek() {
+      return this.collection[this.collection.length - 1];
+   }
+
+   isEmpty() {
+      return this.collection.length === 0;
+   }
+
+   clear() {
+      this.collection = [];
+   }
+}
+
+//////////////////////////////////
+
+class Queue {
+   constructor() {
+      this.collection = [];
+   }
+   print() {
+      console.log(this.collection);
+   }
+
+   enqueue(val) {
+      return this.collection.push(val);
+   }
+
+   deque() {
+      return this.collection.shift();
+   }
+
+   front() {
+      return this.collection[0];
+   }
+
+   size() {
+      return this.collection.length;
+   }
+
+   isEmpty() {
+      return this.collection.length === 0;
+   }
+
+   clear() {
+      this.collection = [];
+   }
+}
+
+///////////////////////////////
+
+class PriorityQueue {
+   constructor() {
+      this.collection = [];
+   }
+
+   print() {
+      console.log(this.collection);
+   }
+
+   enqueue(arr) {
+      const [val, priority] = arr;
+      this.collection = this.collection.reverse();
+      let index = this.collection.findIndex(([v, currPriority]) => priority >= currPriority);
+      index === -1 ? this.collection.push(arr) : this.collection.splice(index, 0, arr);
+      this.collection = this.collection.reverse();
+   }
+
+   deque() {
+      return this.collection.shift()[0];
+   }
+
+   front() {
+      return this.collection[0][0];
+   }
+
+   size() {
+      return this.collection.length;
+   }
+
+   isEmpty() {
+      return this.collection.length === 0;
+   }
+
+   clear() {
+      this.collection = [];
+   }
+}
+
+/////////////////////////////////////
+
+class Node {
+   constructor(element) {
+      this.element = element;
+      this.next = null;
+   }
+}
+
+class LinkedList {
+   constructor() {
+      this.length = 0;
+      this.head = null;
+   }
+   size() {
+      return this.length;
+   }
+   add(element) {
+      const node = new Node(element);
+      if (this.head) {
+         let currNode = this.head;
+         while (currNode.next) {
+            currNode = currNode.next;
+         }
+         currNode.next = node;
+      } else {
+         this.head = node;
+      }
+      this.length++;
+   }
+   remove(element) {
+      if (this.head.element === element) {
+         this.head = this.head.next;
+         return this.length--;
+      }
+      let prevNode = this.head;
+      while (prevNode) {
+         let currNode = prevNode.next;
+         if (currNode) {
+            if (currNode.element === element) {
+               prevNode.next = currNode.next;
+               return this.length--;
+            }
+         }
+         prevNode = currNode;
+      }
+   }
+   isEmpty() {
+      return this.length === 0;
+   }
+   indexOf(element) {
+      let index = 0;
+      let currNode = this.head;
+      while (currNode) {
+         if (currNode.element === element) {
+            return index;
+         }
+         index++;
+         currNode = currNode.next;
+      }
+      return -1;
+   }
+   elementAt(index) {
+      let currNode = this.head;
+      for (let i = 0; i < index; i++) {
+         if (!currNode.next) {
+            return null;
+         }
+         currNode = currNode.next;
+      }
+      return currNode.element;
+   }
+   removeAt(index) {
+      let prevNode = this.head;
+      if (index === 0) {
+         this.length--;
+         this.head = prevNode.next;
+         return prevNode.element;
+      }
+      for (let i = 1; i <= index; i++) {
+         let currNode = prevNode.next;
+         if (currNode) {
+            if (i === index) {
+               this.length--;
+               prevNode.next = currNode.next;
+               return currNode.element;
+            }
+         }
+         prevNode = currNode;
+      }
+      return null;
+   }
+   addAt(index, element) {
+      const node = new Node(element);
+      let currNode = this.head;
+
+      if (index === 0) {
+         this.length++;
+         node.next = this.head;
+         this.head = node;
+         return;
+      }
+
+      for (let i = 1; i <= this.length; i++) {
+         if (i === index) {
+            this.length++;
+            node.next = currNode.next;
+            currNode.next = node;
+            return;
+         }
+         currNode = currNode.next;
+      }
+      return null;
+   }
+}
+const list = new LinkedList();
+list.add('test1');
+list.add('test2');
+list.add('test3');
+list.addAt(1, 'new test');
+console.log(JSON.stringify(list));
