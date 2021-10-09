@@ -539,6 +539,10 @@ class Stack {
       return this.collection[this.collection.length - 1];
    }
 
+   size() {
+      return this.collection.length;
+   }
+
    isEmpty() {
       return this.collection.length === 0;
    }
@@ -738,9 +742,103 @@ class LinkedList {
       return null;
    }
 }
-const list = new LinkedList();
-list.add('test1');
-list.add('test2');
-list.add('test3');
-list.addAt(1, 'new test');
-console.log(JSON.stringify(list));
+
+/////////////////////////////////////////////////
+
+class Map {
+   constructor() {
+      this.collection = {};
+   }
+   print() {
+      console.log(this.collection);
+   }
+   has(key) {
+      return this.collection[key] ? true : false;
+   }
+   add(key, value) {
+      return (this.collection[key] = value);
+   }
+   remove(key) {
+      if (this.has(key)) {
+         delete this.collection[key];
+      }
+   }
+   get(key) {
+      return this.collection[key];
+   }
+   size() {
+      return Object.keys(this.collection).length;
+   }
+   values() {
+      return Object.values(this.collection);
+   }
+   keys() {
+      return Object.keys(this.collection);
+   }
+   clear() {
+      this.collection = {};
+   }
+}
+
+///////////////////////////////////////////////
+
+function validParens(str) {
+   let stack = new Stack();
+   for (let char of str) {
+      stack.push(char);
+   }
+}
+
+validParens('({})');
+
+//////////////////////////////////////////////////
+
+function fibonacci(num) {
+   var a = 1,
+      b = 0,
+      temp;
+
+   while (num >= 0) {
+      temp = a;
+      a = a + b;
+      b = temp;
+      num--;
+   }
+
+   return b;
+}
+function sumFibs(num) {
+   let sum = 0;
+   for (let i = 0; i < num; i++) {
+      let fib = fibonacci(i);
+      if (fib <= num) {
+         if (fib % 2 != 0) {
+            sum += fib;
+         }
+      } else {
+         return sum;
+      }
+   }
+}
+
+// console.log(sumFibs(10));
+
+/////////////////////////////////////
+
+function findAndReplace(str, before, after) {
+   // return str
+   //    .split(' ')
+   //    .map(word => {
+   //       if (word === before) {
+   //          return after;
+   //       } else {
+   //          return word;
+   //       }
+   //    })
+   //    .join(' ');
+   return str
+      .split(' ')
+      .map(word => (word === before ? after : word))
+      .join(' ');
+}
+// console.log(findAndReplace('The quick brown fox jumped over the lazy dog', 'lazy', 'stinky'));
