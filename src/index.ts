@@ -1020,4 +1020,11 @@ function rot13(str: string) {
    }
    return String.fromCharCode(...charCodes);
 }
-console.log(rot13('GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.'));
+// console.log(rot13('GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.'));
+
+////////////////////////////////////////////
+
+function telephoneCheck(str: string) {
+   return str.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g);
+}
+console.log(telephoneCheck('520-780-9324'));
