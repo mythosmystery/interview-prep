@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "concurrently": "^6.3.0",
+    "nodemon": "^2.0.14",
+    "typescript": "^4.4.4"
+  },
+  "name": "interview-prep",
+  "description": "Just some basic job interview coding challenges",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "watch": "tsc -w",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mythosmystery/interview-prep.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mythosmystery/interview-prep/issues"
+  },
+  "homepage": "https://github.com/mythosmystery/interview-prep#readme"
+}

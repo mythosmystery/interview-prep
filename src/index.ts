@@ -1,12 +1,13 @@
 //reverse a string
 //my first attempt with no google
-function reverseString(str) {
+function reverseString(str: string) {
    let reversedStr = '';
    for (let i = str.length - 1; i >= 0; i--) {
       reversedStr = reversedStr + str[i];
    }
    return reversedStr;
 }
+
 //optimized version with googling some array methods
 //const reverseString = str => str.split('').reverse().join('');
 
@@ -23,7 +24,7 @@ function reverseString(str) {
 //    return str === str.split('').reverse().join('');
 // }
 //without .reverse()
-function isPalindrome(str) {
+function isPalindrome(str: string) {
    let reversedStr = '';
    for (let char of str) {
       reversedStr = char + reversedStr;
@@ -42,7 +43,7 @@ function isPalindrome(str) {
 // }
 
 //without .reverse
-function reverseInt(int) {
+function reverseInt(int: number) {
    let reversedNum = '';
    for (let digit of int.toString()) {
       reversedNum = digit + reversedNum;
@@ -56,7 +57,7 @@ function reverseInt(int) {
 
 //capitalize first letter
 //first attempt
-function capitalizeLetters(str) {
+function capitalizeLetters(str: string) {
    let capitalStr = '';
    let words = str.split(' ');
    for (let word of words) {
@@ -79,8 +80,8 @@ function capitalizeLetters(str) {
 
 //get most common character in string
 //first attempt
-function maxCharacter(str) {
-   const map = {};
+function maxCharacter(str: string) {
+   const map: { [key: string]: number } = {};
    let maxChar = '';
    let maxNumber = 0;
 
@@ -96,7 +97,7 @@ function maxCharacter(str) {
    return maxChar;
 }
 
-//console.log(maxCharacter('javascript'));
+// console.log(maxCharacter('javascript'));
 
 /////////////////////////////////////////////
 
@@ -124,9 +125,9 @@ function fizzbuzz() {
 //if just one word return a string if multiple return an array
 //first attempt
 
-function longestWord(sen) {
+function longestWord(sen: string) {
    let maxLength = 0;
-   let maxWords = [];
+   let maxWords: string[] = [];
    sen.split(' ').forEach(word => {
       if (word.length > maxLength) {
          maxLength = word.length;
@@ -144,20 +145,22 @@ function longestWord(sen) {
 
 //split array into chunks
 //first attempt
-function chunkArray(arr, len) {
-   let output = [];
+function chunkArray(arr: number[], len: number) {
+   let output: number[][] = [];
+   let end: number = 0;
+
    const remainder = arr.length % len;
    for (let i = 0; i < Math.floor(arr.length / len); i++) {
-      let chunk = [];
+      let chunk: number[] = [];
       let start = len * i;
-      var end = len * (i + 1);
+      end = len * (i + 1);
       for (let j = start; j < end; j++) {
          chunk.push(arr[j]);
       }
       output.push(chunk);
    }
    if (remainder) {
-      let remainChunk = [];
+      let remainChunk: number[] = [];
       for (let k = end; k < end + remainder; k++) {
          remainChunk.push(arr[k]);
       }
@@ -183,8 +186,8 @@ function chunkArray(arr, len) {
 //    return output;
 // }
 //second attempt with forEach loops
-function flattenArray(arrays) {
-   let output = [];
+function flattenArray(arrays: any[][]) {
+   let output: any[] = [];
    arrays.forEach(array => array.forEach(item => output.push(item)));
    return output;
 }
@@ -217,8 +220,8 @@ function flattenArray(arrays) {
 //    }
 // }
 ///second attempt
-function isAnagram(str1, str2) {
-   let sortedStrings = [];
+function isAnagram(str1: string, str2: string) {
+   let sortedStrings: string[] = [];
    let strings = [str1.replace(/\s/g, '').toLowerCase(), str2.replace(/\s/g, '').toLowerCase()];
    for (let string of strings) {
       sortedStrings.push(string.split('').sort().join(''));
@@ -232,9 +235,9 @@ function isAnagram(str1, str2) {
 //swap letters
 //capitalize vowels, replace letters with the next in the alphabet
 //first attempt
-function letterChanges(str) {
+function letterChanges(str: string) {
    const vowelCodes = [97, 105, 111, 117, 101, 212];
-   const charCodes = [];
+   const charCodes: number[] = [];
    for (let i = 0; i < str.length; i++) {
       str.charCodeAt(i) != 32 ? charCodes.push(str.charCodeAt(i) + 1) : charCodes.push(32);
       for (let vowel of vowelCodes) {
@@ -243,7 +246,7 @@ function letterChanges(str) {
    }
    return String.fromCharCode(...charCodes);
 }
-//console.log(letterChanges('hello there'));
+// console.log(letterChanges('hello there'));
 
 ////////////////////////////////////////////////
 
@@ -256,15 +259,15 @@ function letterChanges(str) {
 //    return sum;
 // }
 //second attempt with reduce
-function addAll(...args) {
+function addAll(...args: number[]) {
    return args.reduce((prevNum, num) => prevNum + num);
 }
-//console.log(addAll(1, 2, 3));
+// console.log(addAll(1, 2, 3));
 
 /////////////////////////////////
 
 //helper function
-function isPrime(num) {
+function isPrime(num: number) {
    for (let i = 2; i < num; i++) {
       if (num % i === 0) return false;
    }
@@ -272,21 +275,21 @@ function isPrime(num) {
 }
 //sum all prime numbers up to target number
 //sumPrimes(10) == 17
-function sumPrimes(target) {
+function sumPrimes(target: number) {
    let sum = 0;
    for (let i = 1; i < target; i++) {
       if (isPrime(i)) sum += i;
    }
    return sum;
 }
-//console.log(sumPrimes(50));
+// console.log(sumPrimes(50));
 
 /////////////////////////////////////////
 
 //seek and destroy
 //remove whatever is in the following arguments from the array
-function seekAndDestroy(...args) {
-   const array = args[0].filter(item => {
+function seekAndDestroy(...args: any[]) {
+   const array: any[] = args[0].filter((item: any) => {
       for (let arg of args) {
          if (item === arg) return false;
       }
@@ -294,16 +297,16 @@ function seekAndDestroy(...args) {
    });
    return array;
 }
-//console.log(seekAndDestroy([1, 2, 3, 6, 6, 'hello'], 2, 6));
+// console.log(seekAndDestroy([1, 2, 3, 6, 6, 'hello'], 2, 6));
 
 ///////////////////////////////////////////////////////////////
 
 //sort by height
 //sort all people without moving trees
 //trees are -1
-function sortByHeight(a) {
-   const trees = [];
-   const people = [];
+function sortByHeight(a: number[]) {
+   const trees: number[] = [];
+   const people: number[] = [];
    a.forEach((height, index) => (height === -1 ? trees.push(index) : people.push(height)));
    const sortedPeople = people.sort();
    trees.forEach(i => sortedPeople.splice(i, 0, -1));
@@ -315,8 +318,8 @@ function sortByHeight(a) {
 
 //missing letters
 //missingLetters('abce') == 'd'
-function missingLetters(str) {
-   const charCodes = [];
+function missingLetters(str: string): string | void {
+   const charCodes: number[] = [];
    for (let i = 0; i < str.length; i++) {
       charCodes.push(str[i].charCodeAt(0));
       let prevChar = charCodes[i - 1];
@@ -327,40 +330,41 @@ function missingLetters(str) {
       }
    }
 }
-//console.log(missingLetters('abce'));
+// console.log(missingLetters('abce'));
 
 //////////////////////////////////////
 
 //even and odd sums
 //evenOddSum([50,60,60,45,71]) == [170,116]
-function evenOddSum(arr) {
+function evenOddSum(arr: number[]) {
    let evenSum = 0;
    let oddSum = 0;
    arr.forEach(num => (num % 2 == 0 ? (evenSum += num) : (oddSum += num)));
-   return [evenSum, oddSum];
+   return { evenSum, oddSum };
 }
-//console.log(evenOddSum([50, 60, 60, 45, 71]));
+
+// console.log(evenOddSum([50, 60, 60, 45, 71]));
 
 ////////////////////////////////////////////////////
 
 //coin flips algorithm
 //minimum flips to get to an alternating pattern
-function coinFlips(A) {
-   let numFlips = 0;
-   A.reduce((prev, curr, index) => {
-      if ((prev === -1 && curr === A[index + 1] && A.length > 3) || prev === curr) {
-         numFlips++;
-         curr === 0 ? curr++ : curr--;
-      }
-      return curr;
-   }, -1);
-   return numFlips;
-}
+// function coinFlips(A) {
+//    let numFlips = 0;
+//    A.reduce((prev, curr, index) => {
+//       if ((prev === -1 && curr === A[index + 1] && A.length > 3) || prev === curr) {
+//          numFlips++;
+//          curr === 0 ? curr++ : curr--;
+//       }
+//       return curr;
+//    }, -1);
+//    return numFlips;
+// }
 //console.log(coinFlips([1, 1, 1, 0, 1, 0, 0, 1]));
 
 ///////////////////////////////
 
-function coinFlips(A) {
+function coinFlips(A: number[]) {
    let minA = 0;
    let minB = 0;
    A.reduce((prev, curr) => {
@@ -397,19 +401,19 @@ function coinFlips(A) {
 //    });
 //    return newArr;
 // }
-function diffArray(arr1, arr2) {
+function diffArray(arr1: any[], arr2: any[]) {
    let arr1Items = arr1.filter(elem => !arr2.includes(elem));
    let arr2Items = arr2.filter(elem => !arr1.includes(elem));
    return arr1Items.concat(arr2Items);
    //return arr1.filter(elem => !arr2.includes(elem)).concat(arr2.filter(elem => !arr1.includes(elem)));
 }
 
-//console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
+// console.log(diffArray(['asdf', 'asdfg', 'asdfghhj', 'asd'], ['asdf', 'asdfg', 'qwert']));
 
 ///////////////////////////////
 
-function destroy(...args) {
-   const array = args[0].filter(item => {
+function destroy(...args: any[]) {
+   const array: any[] = args[0].filter((item: any) => {
       for (let arg of args) {
          if (item === arg) return false;
       }
@@ -421,8 +425,8 @@ function destroy(...args) {
 
 ////////////////////////////////////////
 
-function whatIsInAName(collection, source) {
-   var arr = [];
+function whatIsInAName(collection: object[], source: object) {
+   var arr: object[] = [];
    let srcKeys = Object.keys(source);
    let srcVals = Object.values(source);
    for (let obj of collection) {
@@ -436,7 +440,7 @@ function whatIsInAName(collection, source) {
    return arr;
 }
 
-//whatIsInAName([{ apple: 1, bat: 2 }, { bat: 2 }, { apple: 1, bat: 2, cookie: 2 }], { apple: 1, bat: 2 });
+// whatIsInAName([{ apple: 1, bat: 2 }, { bat: 2 }, { apple: 1, bat: 2, cookie: 2 }], { apple: 1, bat: 2 });
 
 // whatIsInAName(
 //    [
@@ -449,16 +453,16 @@ function whatIsInAName(collection, source) {
 
 ///////////////////////////////////////////////
 
-function spinalCase(str) {
+function spinalCase(str: string) {
    str = str.replace(/([a-z])([A-Z])/g, '$1 $2');
    str = str.replace(/\s+|_+/g, '-');
    return str.toLowerCase();
 }
-//console.log(spinalCase('AllThe-small Things'));
+// console.log(spinalCase('AllThe-small Things'));
 
 //////////////////////////////////////
 
-function pigLatin(str) {
+function pigLatin(str: string) {
    str = str.replace(/^([aeiou]\w+)/g, '$1way');
    str = str.replace(/^([^aeiou]+)(\w+)/g, '$2$1ay');
    return str;
@@ -467,7 +471,7 @@ function pigLatin(str) {
 
 //////////////////////////////////////////////////
 
-function sumAll(arr) {
+function sumAll(arr: number[]): number {
    const [first, last] = arr;
    if (first !== last) {
       return first + sumAll([first + 1, last]);
@@ -479,7 +483,7 @@ function sumAll(arr) {
 
 ///////////////////////////////////////////////
 
-function bubbleSort(arr) {
+function bubbleSort(arr: number[]) {
    for (let _ of arr) {
       let wasSwapped = false;
       for (let i = 0; i < arr.length; i++) {
@@ -494,7 +498,7 @@ function bubbleSort(arr) {
 }
 // console.log(bubbleSort([1, 2, 55, 23, -24, 26, 25, 100, 7, 4, 0]));
 
-function swap(arr, left, right) {
+function swap(arr: number[], left: number, right: number) {
    let temp = arr[left];
    arr[left] = arr[right];
    arr[right] = temp;
@@ -502,7 +506,7 @@ function swap(arr, left, right) {
 
 ///////////////////////////////////////////////////////////////////////
 
-function quickSort(arr, left = 0, right = arr.length - 1) {
+function quickSort(arr: number[], left = 0, right = arr.length - 1) {
    if (left < right) {
       let pivot = left;
       for (let i = left + 1; i <= right; i++) {
@@ -518,7 +522,9 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
 
 /////////////////////////////////////////////////
 
-class Stack {
+class Stack<Type> {
+   collection: Type[];
+
    constructor() {
       this.collection = [];
    }
@@ -527,7 +533,7 @@ class Stack {
       console.log(this.collection);
    }
 
-   push(val) {
+   push(val: Type) {
       return this.collection.push(val);
    }
 
@@ -554,7 +560,9 @@ class Stack {
 
 //////////////////////////////////
 
-class Queue {
+class Queue<Type> {
+   collection: Type[];
+
    constructor() {
       this.collection = [];
    }
@@ -562,7 +570,7 @@ class Queue {
       console.log(this.collection);
    }
 
-   enqueue(val) {
+   enqueue(val: Type) {
       return this.collection.push(val);
    }
 
@@ -589,7 +597,9 @@ class Queue {
 
 ///////////////////////////////
 
-class PriorityQueue {
+class PriorityQueue<Type> {
+   collection: Type[];
+
    constructor() {
       this.collection = [];
    }
@@ -598,20 +608,20 @@ class PriorityQueue {
       console.log(this.collection);
    }
 
-   enqueue(arr) {
-      const [val, priority] = arr;
+   enqueue(arr: Type[]) {
+      const [, priority] = arr;
       this.collection = this.collection.reverse();
-      let index = this.collection.findIndex(([v, currPriority]) => priority >= currPriority);
+      let index = this.collection.findIndex(([, currPriority]) => priority >= currPriority);
       index === -1 ? this.collection.push(arr) : this.collection.splice(index, 0, arr);
       this.collection = this.collection.reverse();
    }
 
    deque() {
-      return this.collection.shift()[0];
+      return this.collection.shift();
    }
 
    front() {
-      return this.collection[0][0];
+      return this.collection.at(0);
    }
 
    size() {
@@ -629,23 +639,29 @@ class PriorityQueue {
 
 /////////////////////////////////////
 
-class Node {
-   constructor(element) {
+class ListNode {
+   element: any;
+   next?: ListNode;
+
+   constructor(element: any) {
       this.element = element;
-      this.next = null;
+      this.next = undefined;
    }
 }
 
 class LinkedList {
+   length: number;
+   head?: ListNode;
+
    constructor() {
       this.length = 0;
-      this.head = null;
+      this.head = undefined;
    }
    size() {
       return this.length;
    }
-   add(element) {
-      const node = new Node(element);
+   add(element: any) {
+      const node = new ListNode(element);
       if (this.head) {
          let currNode = this.head;
          while (currNode.next) {
@@ -657,27 +673,27 @@ class LinkedList {
       }
       this.length++;
    }
-   remove(element) {
-      if (this.head.element === element) {
-         this.head = this.head.next;
+   remove(element: any): number | void {
+      if (this.head?.element === element) {
+         this.head = this.head?.next;
          return this.length--;
       }
+
       let prevNode = this.head;
       while (prevNode) {
          let currNode = prevNode.next;
-         if (currNode) {
-            if (currNode.element === element) {
-               prevNode.next = currNode.next;
-               return this.length--;
-            }
+         if (currNode?.element === element) {
+            prevNode.next = currNode?.next;
+            return this.length--;
          }
+
          prevNode = currNode;
       }
    }
    isEmpty() {
       return this.length === 0;
    }
-   indexOf(element) {
+   indexOf(element: any) {
       let index = 0;
       let currNode = this.head;
       while (currNode) {
@@ -689,38 +705,43 @@ class LinkedList {
       }
       return -1;
    }
-   elementAt(index) {
+   elementAt(index: number) {
       let currNode = this.head;
       for (let i = 0; i < index; i++) {
-         if (!currNode.next) {
+         if (!currNode?.next) {
             return null;
          }
          currNode = currNode.next;
       }
-      return currNode.element;
+      return currNode?.element;
    }
-   removeAt(index) {
+   removeAt(index: number) {
       let prevNode = this.head;
+
       if (index === 0) {
          this.length--;
-         this.head = prevNode.next;
-         return prevNode.element;
+         this.head = prevNode?.next;
+         return prevNode?.element;
       }
+
       for (let i = 1; i <= index; i++) {
-         let currNode = prevNode.next;
+         let currNode: ListNode | undefined = prevNode?.next;
          if (currNode) {
             if (i === index) {
                this.length--;
-               prevNode.next = currNode.next;
+               if (prevNode) {
+                  prevNode.next = currNode.next;
+               }
                return currNode.element;
             }
          }
          prevNode = currNode;
       }
+
       return null;
    }
-   addAt(index, element) {
-      const node = new Node(element);
+   addAt(index: number, element: any): void {
+      const node = new ListNode(element);
       let currNode = this.head;
 
       if (index === 0) {
@@ -731,39 +752,41 @@ class LinkedList {
       }
 
       for (let i = 1; i <= this.length; i++) {
-         if (i === index) {
+         if (i === index && currNode) {
             this.length++;
             node.next = currNode.next;
             currNode.next = node;
             return;
          }
-         currNode = currNode.next;
+         currNode = currNode?.next;
       }
-      return null;
+      return;
    }
 }
 
 /////////////////////////////////////////////////
 
-class Map {
+class MapDS {
+   collection: { [key: string]: any };
+
    constructor() {
       this.collection = {};
    }
    print() {
       console.log(this.collection);
    }
-   has(key) {
+   has(key: string) {
       return this.collection[key] ? true : false;
    }
-   add(key, value) {
+   add(key: string, value: any) {
       return (this.collection[key] = value);
    }
-   remove(key) {
+   remove(key: string) {
       if (this.has(key)) {
          delete this.collection[key];
       }
    }
-   get(key) {
+   get(key: string) {
       return this.collection[key];
    }
    size() {
@@ -782,7 +805,7 @@ class Map {
 
 ///////////////////////////////////////////////
 
-function validParens(str) {
+function validParens(str: string) {
    let stack = new Stack();
    for (let char of str) {
       stack.push(char);
@@ -793,10 +816,10 @@ validParens('({})');
 
 //////////////////////////////////////////////////
 
-function fibonacci(num) {
-   var a = 1,
+function fibonacci(num: number) {
+   let a = 1,
       b = 0,
-      temp;
+      temp: number;
 
    while (num >= 0) {
       temp = a;
@@ -807,7 +830,7 @@ function fibonacci(num) {
 
    return b;
 }
-function sumFibs(num) {
+function sumFibs(num: number): number | void {
    let sum = 0;
    for (let i = 0; i < num; i++) {
       let fib = fibonacci(i);
@@ -825,7 +848,7 @@ function sumFibs(num) {
 
 /////////////////////////////////////
 
-function findAndReplace(str, before, after) {
+function findAndReplace(str: string, before: string, after: string) {
    // return str
    //    .split(' ')
    //    .map(word => {
@@ -845,13 +868,16 @@ function findAndReplace(str, before, after) {
 
 ////////////////////////////////////////////////////////
 
-class Set {
+class SetDS {
+   dictionary: { [key: string]: any };
+   length: number;
+
    constructor() {
       this.dictionary = {};
       this.length = 0;
    }
 
-   has(element) {
+   has(element: string) {
       return this.dictionary[element] !== undefined;
    }
 
@@ -859,7 +885,7 @@ class Set {
       return Object.keys(this.dictionary);
    }
 
-   add(element) {
+   add(element: any) {
       if (!this.has(element)) {
          this.dictionary[element] = true;
          this.length++;
@@ -869,7 +895,7 @@ class Set {
       return false;
    }
 
-   remove(element) {
+   remove(element: any) {
       if (this.has(element)) {
          delete this.dictionary[element];
          this.length--;
@@ -883,8 +909,8 @@ class Set {
       return this.length;
    }
 
-   union(set) {
-      const newSet = new Set();
+   union(set: SetDS) {
+      const newSet = new SetDS();
       this.values().forEach(value => {
          newSet.add(value);
       });
@@ -895,12 +921,12 @@ class Set {
       return newSet;
    }
 
-   intersection(set) {
-      const newSet = new Set();
+   intersection(set: SetDS) {
+      const newSet = new SetDS();
 
-      let largeSet;
-      let smallSet;
-      if (this.dictionary.length > set.length) {
+      let largeSet: SetDS;
+      let smallSet: SetDS;
+      if (this.length > set.length) {
          largeSet = this;
          smallSet = set;
       } else {
@@ -916,8 +942,8 @@ class Set {
 
       return newSet;
    }
-   difference(set) {
-      const newSet = new Set();
+   difference(set: SetDS) {
+      const newSet = new SetDS();
 
       this.values().forEach(value => {
          if (!set.dictionary[value]) {
