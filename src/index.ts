@@ -558,6 +558,10 @@ class Stack<Type> {
    }
 }
 
+// equivalent
+// const stack: Stack<string> = new Stack();
+const stack = new Stack<string>();
+
 //////////////////////////////////
 
 class Queue<Type> {
@@ -574,7 +578,7 @@ class Queue<Type> {
       return this.collection.push(val);
    }
 
-   deque() {
+   dequeue() {
       return this.collection.shift();
    }
 
@@ -595,10 +599,12 @@ class Queue<Type> {
    }
 }
 
+const queue = new Queue<string>();
+
 ///////////////////////////////
 
 class PriorityQueue<Type> {
-   collection: Type[];
+   collection: Array<[Type, number]>;
 
    constructor() {
       this.collection = [];
@@ -608,7 +614,7 @@ class PriorityQueue<Type> {
       console.log(this.collection);
    }
 
-   enqueue(arr: Type[]) {
+   enqueue(arr: [Type, number]) {
       const [, priority] = arr;
       this.collection = this.collection.reverse();
       let index = this.collection.findIndex(([, currPriority]) => priority >= currPriority);
@@ -616,7 +622,7 @@ class PriorityQueue<Type> {
       this.collection = this.collection.reverse();
    }
 
-   deque() {
+   dequeue() {
       return this.collection.shift();
    }
 
@@ -637,30 +643,35 @@ class PriorityQueue<Type> {
    }
 }
 
+const priorityQueue = new PriorityQueue<string>();
+
 /////////////////////////////////////
 
-class ListNode {
-   element: any;
-   next?: ListNode;
+class ListNode<Type> {
+   element: Type;
+   next?: ListNode<Type>;
 
-   constructor(element: any) {
+   constructor(element: Type) {
       this.element = element;
       this.next = undefined;
    }
 }
 
-class LinkedList {
+class LinkedList<Type> {
    length: number;
-   head?: ListNode;
+   head?: ListNode<Type>;
 
    constructor() {
       this.length = 0;
       this.head = undefined;
    }
+   print() {
+      console.log(JSON.stringify(this.head));
+   }
    size() {
       return this.length;
    }
-   add(element: any) {
+   add(element: Type) {
       const node = new ListNode(element);
       if (this.head) {
          let currNode = this.head;
@@ -673,7 +684,7 @@ class LinkedList {
       }
       this.length++;
    }
-   remove(element: any): number | void {
+   remove(element: Type): number | void {
       if (this.head?.element === element) {
          this.head = this.head?.next;
          return this.length--;
@@ -693,7 +704,7 @@ class LinkedList {
    isEmpty() {
       return this.length === 0;
    }
-   indexOf(element: any) {
+   indexOf(element: Type) {
       let index = 0;
       let currNode = this.head;
       while (currNode) {
@@ -725,7 +736,7 @@ class LinkedList {
       }
 
       for (let i = 1; i <= index; i++) {
-         let currNode: ListNode | undefined = prevNode?.next;
+         let currNode: ListNode<Type> | undefined = prevNode?.next;
          if (currNode) {
             if (i === index) {
                this.length--;
@@ -740,7 +751,7 @@ class LinkedList {
 
       return null;
    }
-   addAt(index: number, element: any): void {
+   addAt(index: number, element: Type): void {
       const node = new ListNode(element);
       let currNode = this.head;
 
@@ -764,10 +775,12 @@ class LinkedList {
    }
 }
 
+const linkedList = new LinkedList<string>();
+
 /////////////////////////////////////////////////
 
-class MapDS {
-   collection: { [key: string]: any };
+class MapDS<Type> {
+   collection: { [key: string]: Type };
 
    constructor() {
       this.collection = {};
@@ -778,7 +791,7 @@ class MapDS {
    has(key: string) {
       return this.collection[key] ? true : false;
    }
-   add(key: string, value: any) {
+   add(key: string, value: Type) {
       return (this.collection[key] = value);
    }
    remove(key: string) {
@@ -803,10 +816,12 @@ class MapDS {
    }
 }
 
+const map = new MapDS<string>();
+
 ///////////////////////////////////////////////
 
 function validParens(str: string) {
-   let stack = new Stack();
+   let stack = new Stack<string>();
    for (let char of str) {
       stack.push(char);
    }
@@ -849,16 +864,6 @@ function sumFibs(num: number): number | void {
 /////////////////////////////////////
 
 function findAndReplace(str: string, before: string, after: string) {
-   // return str
-   //    .split(' ')
-   //    .map(word => {
-   //       if (word === before) {
-   //          return after;
-   //       } else {
-   //          return word;
-   //       }
-   //    })
-   //    .join(' ');
    return str
       .split(' ')
       .map(word => (word === before ? after : word))
@@ -867,9 +872,9 @@ function findAndReplace(str: string, before: string, after: string) {
 // console.log(findAndReplace('The quick brown fox jumped over the lazy dog', 'lazy', 'stinky'));
 
 ////////////////////////////////////////////////////////
-
+type Key = string | symbol | number;
 class SetDS {
-   dictionary: { [key: string]: any };
+   dictionary: { [key: Key]: boolean };
    length: number;
 
    constructor() {
@@ -877,7 +882,7 @@ class SetDS {
       this.length = 0;
    }
 
-   has(element: string) {
+   has(element: Key) {
       return this.dictionary[element] !== undefined;
    }
 
@@ -885,7 +890,7 @@ class SetDS {
       return Object.keys(this.dictionary);
    }
 
-   add(element: any) {
+   add(element: Key) {
       if (!this.has(element)) {
          this.dictionary[element] = true;
          this.length++;
@@ -895,7 +900,7 @@ class SetDS {
       return false;
    }
 
-   remove(element: any) {
+   remove(element: Key) {
       if (this.has(element)) {
          delete this.dictionary[element];
          this.length--;
@@ -955,4 +960,64 @@ class SetDS {
    }
 }
 
+const set = new SetDS();
+
 /////////////////////////////////////////
+
+function palindrome(str: string) {
+   str = str
+      .toLowerCase()
+      .trim()
+      .replace(/[^A-Z0-9]/gi, '');
+   const reversedString = str.split('').reduce((revString, char) => char + revString, '');
+   return str === reversedString;
+}
+// console.log(palindrome('_RaceCar'));
+
+/////////////////////////////////////////////
+
+const romanMatrix: [number, string][] = [
+   [1000, 'M'],
+   [900, 'CM'],
+   [500, 'D'],
+   [400, 'CD'],
+   [100, 'C'],
+   [90, 'XC'],
+   [50, 'L'],
+   [40, 'XL'],
+   [10, 'X'],
+   [9, 'IX'],
+   [5, 'V'],
+   [4, 'IV'],
+   [1, 'I'],
+];
+
+function convertToRoman(num: number): string | void {
+   if (num === 0) {
+      return '';
+   }
+   for (let [digit, roman] of romanMatrix) {
+      if (num >= digit) {
+         return roman + convertToRoman(num - digit);
+      }
+   }
+}
+
+// console.log(convertToRoman(798));
+
+////////////////////////////////////
+
+function rot13(str: string) {
+   const charCodes: number[] = [];
+   const __split__ = 78;
+
+   for (let i = 0; i < str.length; i++) {
+      if (str[i].match(/[^A-Z0-9]/g)) {
+         charCodes.push(str.charCodeAt(i));
+      } else {
+         str.charCodeAt(i) < __split__ ? charCodes.push(str.charCodeAt(i) + 13) : charCodes.push(str.charCodeAt(i) - 13);
+      }
+   }
+   return String.fromCharCode(...charCodes);
+}
+console.log(rot13('GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.'));
