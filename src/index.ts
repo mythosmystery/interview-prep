@@ -1025,6 +1025,33 @@ function rot13(str: string) {
 ////////////////////////////////////////////
 
 function telephoneCheck(str: string) {
-   return str.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g);
+   const phoneRegex = /^\s*(?:\+?([1]{1}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})\s*$/g;
+   return !!str.match(phoneRegex);
 }
-console.log(telephoneCheck('520-780-9324'));
+// console.log(telephoneCheck('1 555)555-5555'));
+
+///////////////////////////////////////////////
+type CID = [string, number][];
+
+type CashRegister = {
+   status: 'CLOSED' | 'OPEN' | 'INSUFFICIENT_FUNDS';
+   change: CID;
+};
+
+function checkCashRegister(price: number, cash: number, cid: CID): CashRegister {
+   return { status: 'CLOSED', change: [['DOLLAR', 1]] };
+}
+
+const testCid: CID = [
+   ['PENNY', 1.01],
+   ['NICKEL', 2.05],
+   ['DIME', 3.1],
+   ['QUARTER', 4.25],
+   ['ONE', 90],
+   ['FIVE', 55],
+   ['TEN', 20],
+   ['TWENTY', 60],
+   ['ONE HUNDRED', 100],
+];
+
+console.log(checkCashRegister(19.5, 20, testCid));
