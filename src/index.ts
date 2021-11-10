@@ -1038,8 +1038,61 @@ type CashRegister = {
    change: CID;
 };
 
+const currencyValues: { [key: string]: number } = {
+   PENNY: 0.01,
+   NICKEL: 0.05,
+   DIME: 0.1,
+   QUARTER: 0.25,
+   ONE: 1,
+   FIVE: 5,
+   TEN: 10,
+   TWENTY: 20,
+   'ONE HUNDRED': 100,
+};
+
+function roundCash(num: number): number {
+   return +num.toFixed(2);
+}
+function getTotal(cid: CID): number {
+   const [, total] = cid.reduce(([, prev], [, curr]) => ['TOTAL', roundCash(prev + curr)]);
+   return total;
+}
+
 function checkCashRegister(price: number, cash: number, cid: CID): CashRegister {
-   return { status: 'CLOSED', change: [['DOLLAR', 1]] };
+   const totalInDrawer = getTotal(cid);
+
+   let changeDue = cash - price;
+   let changeArray: CID = [];
+
+   if (changeDue > totalInDrawer) {
+      return { status: 'INSUFFICIENT_FUNDS', change: [] };
+   }
+   if (changeDue === totalInDrawer) {
+      return { status: 'CLOSED', change: cid };
+   }
+
+   for (let [cashType, amount] of cid.reverse()) {
+      const remainder = Math.floor(roundCash(changeDue / currencyValues[cashType]));
+      const changeAmount = roundCash(currencyValues[cashType] * remainder);
+
+      if (remainder > 0) {
+         if (changeAmount <= amount) {
+            changeDue -= changeAmount;
+            changeArray.push([cashType, changeAmount]);
+         } else {
+            if (amount > 0) {
+               changeDue -= amount;
+               changeArray.push([cashType, amount]);
+            }
+         }
+      }
+   }
+
+   if (changeArray.length === 0 || getTotal(changeArray) < changeDue) {
+      return { status: 'INSUFFICIENT_FUNDS', change: [] };
+   }
+
+   return { status: 'OPEN', change: changeArray };
 }
 
 const testCid: CID = [
@@ -1054,4 +1107,16 @@ const testCid: CID = [
    ['ONE HUNDRED', 100],
 ];
 
-console.log(checkCashRegister(19.5, 20, testCid));
+const emptyCid: CID = [
+   ['PENNY', 0.01],
+   ['NICKEL', 0.05],
+   ['DIME', 0],
+   ['QUARTER', 0],
+   ['ONE', 1],
+   ['FIVE', 0],
+   ['TEN', 0],
+   ['TWENTY', 0],
+   ['ONE HUNDRED', 0],
+];
+
+console.log(checkCashRegister(19.5, 100, testCid));
