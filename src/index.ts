@@ -1024,11 +1024,18 @@ function rot13(str: string) {
 
 ////////////////////////////////////////////
 
-function telephoneCheck(str: string) {
+function telephoneCheck(str: string): boolean {
+   const bothParens = /(?=[(])(?=.*[)])/g;
    const phoneRegex = /^\s*(?:\+?([1]{1}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})\s*$/g;
+
+   if (!str.match(bothParens) && (str.includes(')') || str.includes('('))) {
+      return false;
+   }
+
    return !!str.match(phoneRegex);
 }
-// console.log(telephoneCheck('1 555)555-5555'));
+
+console.log(telephoneCheck('1 (555) 555-5555'));
 
 ///////////////////////////////////////////////
 type CID = [string, number][];
@@ -1119,4 +1126,4 @@ const emptyCid: CID = [
    ['ONE HUNDRED', 0],
 ];
 
-console.log(checkCashRegister(19.5, 100, testCid));
+// console.log(checkCashRegister(19.5, 100, testCid));
